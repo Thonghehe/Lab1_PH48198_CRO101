@@ -21,6 +21,7 @@ export default function HomeScreen() {
 
 
   useEffect(() => {
+    //Danh sách các cầu thủ
     const players: (Player | undefined)[] = [
       { name: 'Messi', goals: 30 },
       undefined,
@@ -30,19 +31,19 @@ export default function HomeScreen() {
       { name: 'Mbappé', goals: 25 },
       { name: 'Pele', goals: null },
     ];
-
+    //Kiểm tra cầu thủ có hợp lệ không
     const validRule = ({ name, goals }: Player = {}) => {
       return !!name && goals != null;
     };
-
+    //Lọc ra danh sách cầu thủ hợp lệ
     const validPlayers = players.filter(validRule);
     setValidPlayers(validPlayers);
 
 
-
+    //Tính tổng số bàn thắng của tất cả các cầu thủ
     const totalGoals = validPlayers.reduce((sum, player) => sum + (player?.goals ?? 0), 0);
     setTotalGoals(totalGoals);
-
+    //Tìm cầu thủ ghi bàn nhiều nhất
     const topScorer = validPlayers.reduce((max, player) => (player?.goals! > (max.goals ?? 0) ? player : max), { name: '', goals: 0 } as Player);
     setTopScorer(topScorer);
   }, []);
